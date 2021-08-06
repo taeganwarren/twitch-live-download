@@ -1,5 +1,6 @@
 const { dl_stream } = require('./dl_vod');
 const { getStream, getVod } = require('./m3u8');
+const { render_stream } = require('./render_stream');
 
 function sleep(ms) {
   return new Promise((resolve) => {
@@ -33,6 +34,7 @@ const online_subscription = async (name, user_id, api_client) => {
             );
             console.log(data[0].url);
             await dl_stream(data[0].url);
+            await render_stream();
           }
         })
         .catch((err) => console.error(err));
