@@ -25,7 +25,7 @@ async function dl_stream(url) {
           continue;
         }
       } else {
-        process.exit(1);
+        return;
       }
     }
   }
