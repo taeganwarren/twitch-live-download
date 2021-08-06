@@ -20,7 +20,7 @@ const online_subscription = async (name, user_id, listener, api_client) => {
         }
       );
       getVod(videos[0].id)
-        .then((data) => {
+        .then(async (data) => {
           if (online === false) {
             online = true;
             let date = new Date();
