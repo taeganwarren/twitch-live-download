@@ -14,7 +14,7 @@ const main = async () => {
   );
   const apiClient = new ApiClient({ authProvider });
 
-  await online_subscription('aquafps', 134666774, listener, apiClient);
+  await online_subscription('aquafps', 134666774, apiClient);
 };
 
 main();

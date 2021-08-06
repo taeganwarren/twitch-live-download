@@ -7,9 +7,13 @@ function sleep(ms) {
   });
 }
 
-const online_subscription = async (name, user_id, listener, api_client) => {
+const online_subscription = async (name, user_id, api_client) => {
   let online = false;
   while (true) {
+    let date = new Date();
+    console.log(
+      `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}] Checking status of stream: ${name}`
+    );
     try {
       await getStream(name);
       const { data: videos } = await api_client.helix.videos.getVideosByUser(
