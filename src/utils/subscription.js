@@ -24,20 +24,17 @@ const online_subscription = async (name, user_id, api_client) => {
           type: 'archive',
         }
       );
-      getVod(videos[0].id)
-        .then(async (data) => {
-          if (online === false) {
-            online = true;
-            let date = new Date();
-            console.log(
-              `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}] ${name} is online`
-            );
-            console.log(data[0].url);
-            await dl_stream(data[0].url);
-            await render_stream();
-          }
-        })
-        .catch((err) => console.error(err));
+      const data = await getVod(videos[0].id);
+      if (online === false) {
+        online = true;
+        let date = new Date();
+        console.log(
+          `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}] ${name} is online`
+        );
+        console.log(data[0].url);
+        await dl_stream(data[0].url);
+        await render_stream();
+      }
     } catch (e) {
       if (online === true) {
         online = false;
