@@ -1,8 +1,11 @@
 const fs = require('fs');
 const fetch = require('node-fetch');
 
-async function dl_stream(url) {
+async function dl_stream(url, vod_id) {
   let retry_limit = 20;
+  await fs.promises.mkdir(`/home/taegan/vods/aquafps/${vod_id}/`, {
+    recursive: true,
+  });
   for (let i = 0; i < 9999; i++) {
     let cur_retries = 0;
     while (true) {
@@ -10,7 +13,9 @@ async function dl_stream(url) {
         let fix_url = url.substring(0, url.length - 14) + `${i}.ts`;
         const res = await fetch(fix_url);
         if (res.status === 200) {
-          const fileStream = fs.createWriteStream(`${i}.ts`);
+          const fileStream = fs.createWriteStream(
+            `/home/taegan/vods/aquafps/${vod_id}/${i}.ts`
+          );
           res.body.pipe(fileStream);
           fileStream.on('finish', () => {
             fileStream.close();

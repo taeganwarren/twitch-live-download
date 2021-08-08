@@ -24,6 +24,9 @@ const online_subscription = async (name, user_id, api_client) => {
           type: 'archive',
         }
       );
+      const channel_info = await api_client.helix.channels.getChannelInfo(
+        user_id
+      );
       const data = await getVod(videos[0].id);
       if (online === false) {
         online = true;
@@ -31,8 +34,7 @@ const online_subscription = async (name, user_id, api_client) => {
         console.log(
           `[${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}] ${name} is online`
         );
-        console.log(data[0].url);
-        await dl_stream(data[0].url);
+        await dl_stream(data[0].url, videos[0].id);
         await render_stream();
       }
     } catch (e) {
